@@ -11,16 +11,19 @@ namespace tdtsptw
 {
 VertexSet NGLInfo::ExtendNG(const VertexSet& S, Vertex v) const
 {
-	auto Sv = S & N[v];
+	auto Sv = S & N[v]; // Sv = S \cap N(v).
 	Sv.set(v);
 	return Sv;
 }
 
-void create_default_nginfo(const VRPInstance& vrp, int delta, NGLInfo* forward, NGLInfo* backward)
-{
+void create_default_nginfo(
+	const VRPInstance& vrp, 
+	int delta, // nb closest vertices in neighbourhood to keep.
+	NGLInfo* forward, 
+	NGLInfo* backward
+) {
 	// Compute Neighbourhoods.
 	forward->N = vector<VertexSet>(vrp.D.VertexCount());
-	vector<vector<Vertex>> N_list(vrp.D.VertexCount());
 	for (Vertex i: vrp.D.Vertices())
 	{
 		vector<pair<double, Vertex>> N_by_dist;
@@ -35,9 +38,8 @@ void create_default_nginfo(const VRPInstance& vrp, int delta, NGLInfo* forward, 
 		for (int k = 0; k < min(delta, (int)N_by_dist.size()); ++k)
 		{
 			forward->N[i].set(N_by_dist[k].second);
-			N_list[i].push_back(N_by_dist[k].second);
 		}
-		forward->N[i].set(i);
+		forward->N[i].set(i); // add i to its own neighbourhood.
 	}
 
 	// Compute NGL path

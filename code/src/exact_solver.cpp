@@ -14,10 +14,11 @@ namespace tdtsptw
 // 	vrp: instance to work with.
 //	penalties: penalties of the vertices.
 //	L: map (v, S) -> LabelSequence of non-dominated labels.
-goc::GraphPath reconstruct_path(const VRPInstance& vrp,
-								const vector<double>& penalties,
-								vector<spp::sparse_hash_map<VertexSet, LabelSequenceTD>>& L)
-{
+goc::GraphPath reconstruct_path(
+	const VRPInstance& vrp,
+	const vector<double>& penalties,
+	vector<spp::sparse_hash_map<VertexSet, LabelSequenceTD>>& L
+) {
 	// Variables that contain information about the path to be built.
 	Vertex v = vrp.d;
 	VertexSet S;

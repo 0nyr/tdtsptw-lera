@@ -12,11 +12,19 @@ using namespace nlohmann;
 
 namespace tdtsptw
 {
-void dynamic_neighbour_augmentation(const RelaxationSolver& relaxation, const VRPInstance& vrp_f,
-									const VRPInstance& vrp_b, NGLInfo& ngl_info_f, NGLInfo& ngl_info_b, int delta,
-									const vector<double>& penalties, const Duration& time_limit, Route* UB, double* lb,
-									json* log)
-{
+void dynamic_neighbour_augmentation(
+	const RelaxationSolver& relaxation, 
+	const VRPInstance& vrp_f,
+	const VRPInstance& vrp_b, 
+	NGLInfo& ngl_info_f, 
+	NGLInfo& ngl_info_b, 
+	int delta,
+	const vector<double>& penalties, 
+	const Duration& time_limit, 
+	Route* UB, 
+	double* lb,
+	json* log
+) {
 	// Initialize log.
 	Stopwatch rolex(true), rolex_temp(false);
 	CGExecutionLog log_dna;
